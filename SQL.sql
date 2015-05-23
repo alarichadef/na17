@@ -82,7 +82,7 @@ CREATE TABLE Membre_du_laboratoire (
 	quotite INTEGER,
 	etablissement VARCHAR(30),
 	sujet VARCHAR(30) UNIQUE,
-	debut DATE NOT NULL,
+	debut DATE,
 	fin DATE,
 	FOREIGN KEY (mail) REFERENCES Membre_du_projet(mail));
 
@@ -116,7 +116,7 @@ CREATE TABLE Financeur(
 CREATE VIEW vFinanceur AS
 	SELECT * FROM Entite_juridique E JOIN Financeur F using(nom);
 
-CREATE TYPE Etat_type AS ENUM('actif', 'disparu');
+CREATE TYPE Etat_type AS ENUM('actif', 'inactif');
 
 CREATE TABLE Organisme_de_projet (
 	nom VARCHAR(30) PRIMARY KEY,
@@ -133,12 +133,11 @@ CREATE TABLE Assoc_Financeur_Organisme(
 CREATE TABLE Appel_a_projet (
 	id SERIAL PRIMARY KEY,
 	lancement DATE NOT NULL,
-	duree DATE NOT NULL,
+	duree INTEGER NOT NULL,
 	theme VARCHAR(30),
-	description VARCHAR(100),
+	description TEXT,
 	publieur VARCHAR(30) NOT NULL REFERENCES Organisme_de_projet(nom),
-	comite VARCHAR(30) NOT NULL REFERENCES Comite(nom),
-	CONSTRAINT u_contraint UNIQUE (lancement, duree));
+	comite VARCHAR(30) NOT NULL REFERENCES Comite(nom));
 
 -- modif: BUDGET SUPPRIMEE, GREFFE DE LIGNES BUDGETAIRES DIRECTEMENT A PROPOSITION DE PROJET 
 

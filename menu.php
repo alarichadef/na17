@@ -5,6 +5,9 @@
                         <li><a href="#sec2">Organismes Projets</a></li>
                         <li><a href="#sec3">Créer un Organisme Projet</a></li>
                         <li><a href="#sec4">Labels</a></li>
+                        <li><a href="#sec5">Liste des Financeurs</a></li>
+                        <li><a href="#sec6">Inscrire un Financeur</a></li>
+
                     </ul>
                 </div>
                 <!--right-->
