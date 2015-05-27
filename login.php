@@ -1,5 +1,8 @@
-<?php include('header.php'); 
-        include('conf.php'); ?>
+<?php 
+include('conf.php');
+
+include('header.php'); 
+         ?>
 <?php if(isset($_POST['login'])){ 
        if($_POST['login'] == "admin"){
           $_SESSION['login'] = "admin";
