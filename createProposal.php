@@ -8,7 +8,7 @@ if($_SESSION['role'] == 'membre_du_laboratoire')
 	if (isset($_GET['requestId']))
 	{
 		$resquestId = intval($_GET['requestId']);
-		if(!isset($_POST['proposalId']) || $_POST['proposalId'] == "") // insertion proposition de projet
+		if( !isset($_GET['proposalId'])) // insertion proposition de projet
 		{
 			$proposalId = createProposal($resquestId);
 		}
@@ -21,12 +21,12 @@ if($_SESSION['role'] == 'membre_du_laboratoire')
 			createBudgetLine($proposalId, $montant, $objet, $financeType);
 		}
 ?>
-	<h3>Lignes budgétaires :</h3>
+	<h3>Lignes budgetaires :</h3>
 <?php
 	// Affichage des lignes
-	if (isset($_POST['proposalId']) && $_POST['proposalId'] != "") 
+	if (isset($_GET['proposalId']) )
 	{
-		$proposalId = intval($_POST['proposalId']);
+		$proposalId = intval($_GET['proposalId']);
 		$budgetlines = getBudgetLines($proposalId);
 		?>
 		<table class="table table-bordered table-hover table-striped">
@@ -34,7 +34,7 @@ if($_SESSION['role'] == 'membre_du_laboratoire')
             <tbody>
 		<?php
 		while($result = pg_fetch_array($budgetlines)){
-            echo "<tr><td>".$result['objet']."</td><td>".$result['montant']."</td><td>".$result['financement']."</td><td></td></tr>";
+            echo "<tr><td>".$result['objet_global']."</td><td>".$result['montant']."</td><td>".$result['financement']."</td><td></td></tr>";
         }
         ?>
             </tbody>
@@ -44,7 +44,7 @@ if($_SESSION['role'] == 'membre_du_laboratoire')
 	
 ?>
 	<h3>Ajouter une ligne :</h3>
-	<form action="/createProposal.php" method="POST">
+	<form action="/createProposal.php?requestId=<?php echo $resquestId; ?>&proposalId=<?php echo $proposalId; ?>" method="POST">
 		<input type="hidden" name="proposalId" value="<?php echo $proposalId; ?>">
 		Montant : 
 		<input name="montant" type="text"><br>
