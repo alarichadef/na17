@@ -1,0 +1,90 @@
+<?php
+include_once("conf.php");
+include_once("dataprovider.php");
+session_start();
+
+if (isset($_GET['proposalId']))
+{
+	$proposalId = intval($_GET['proposalId']);
+	$proposal = getProposalById($proposalId);
+	$budgetlines = getBudgetLines($proposalId);
+
+	$proposal = pg_fetch_array($proposal);
+	?>
+
+	<h2>Proposition de projet</h2>
+	<h3>Caract&eacute;ristiques</h3>
+	<table class="table table-bordered table-hover table-striped">
+        <tr><td><b>Projet</b></td><td><?php echo $proposal['description'] ?></td></tr>
+        <tr><td><b>Th&egrave;me</b></td><td><?php echo $proposal['theme'] ?></td></tr>
+        <tr><td><b>Dur&eacute;e</b></td><td><?php echo $proposal['duree'] ?></td></tr>
+        <tr><td><b>Lancement</b></td><td><?php echo $proposal['lancement'] ?></td></tr>
+        <tr><td><b>R&eacute;ponse</b></td><td>
+        	<?php if ($proposal['acceptation'] == null)
+        			echo "En attente";
+        			elseif ($proposal['acceptation'] == 't')
+        				echo "Accept&eacute;";
+        			else
+        				echo "Refus&eacute;";
+        	 ?>
+        </td></tr>
+        <tr><td><b>Date r&eacute;ponse</b></td><td><?php echo $proposal['reponse'] ?></td></tr>
+    </table>
+    <h3>Budget</h3>
+    <table class="table table-bordered table-hover table-striped">
+            <thead><tr><th>Objet</th><th>Montant</th><th>Type financement</th><th></th></tr></thead>
+            <tbody>
+		<?php
+		while($result = pg_fetch_array($budgetlines)){
+            echo "<tr><td>".$result['objet_global']."</td><td>".$result['montant']."</td><td>".$result['financement']."</td><td></td></tr>";
+        }
+        ?>
+            </tbody>
+        </table>
+    <h3>Labels</h3>
+    <p>
+    	<?php
+    	$labels = getLabels($proposalId);
+    	$label = pg_fetch_assoc($labels);
+    	if ($label != 0)
+    		echo $label['label'];
+    	while ($label = pg_fetch_assoc($labels)) {
+    		$labelvalue = $label['label'];
+    		echo ", $labelvalue";
+    	}
+    	?> 
+    </p>
+	<?php
+	if ($_SESSION['role'] == 'employe_de_contact')
+	{
+		?>
+		<h2>Actions</h2>
+		<form action="decideProposal.php" method="POST"> 
+			<input type="hidden" name="proposalId" value="<?php echo $proposalId;?>">
+			<ul>
+				<li>
+					Donner un label : 
+						<input type="text" name="label">
+						<input type="submit" name="labelSubmit" value="Valider">
+				</li>
+				<?php if($proposal['acceptation'] == null) { ?>
+				<li>
+						<input type="submit" name="acceptSubmit" value="Accepter la proposition">
+				</li>
+				<li>
+						<input type="submit" name="refuseSubmit" value="Refuser la proposition">
+				</li>
+				<?php } ?>
+			</ul>
+		</form>
+		<?php
+	}
+}
+else {
+	echo "<p class='error'>Erreur, renseignez une proposition de projet</p>";
+}
+?>
+
+<?php
+dpdisconnect();
+?>

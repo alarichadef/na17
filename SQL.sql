@@ -147,11 +147,12 @@ CREATE TABLE Proposition_de_projet(
 	acceptation BOOLEAN,
 	appel_a_projet INTEGER REFERENCES Appel_a_projet(id));
 
+-- correction : cle primaire (proposition, label)
 CREATE TABLE Donne_Label(
 	entite_juridique VARCHAR(30) REFERENCES Entite_juridique(nom),
 	proposition_de_projet INTEGER REFERENCES Proposition_de_projet(id),
 	label VARCHAR(30) NOT NULL,
-	PRIMARY KEY (entite_juridique, proposition_de_projet));
+	PRIMARY KEY (label, proposition_de_projet));
 
 
 CREATE TYPE Type_financement AS ENUM('fonctionnement', 'materiel');

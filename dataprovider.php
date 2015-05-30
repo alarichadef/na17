@@ -65,6 +65,18 @@ function getProposalsByRequest( $requestId)
 	return $qresults;
 }
 
+function getProposalById ($proposalId)
+{
+	$db = dpconnexion();
+	$query = "SELECT * FROM proposition_de_projet p JOIN appel_a_projet a ON p.appel_a_projet = a.id WHERE p.id = $proposalId";
+
+
+    $qresult = pg_query($query);
+	//pg_close($db);
+
+	return $qresult;
+}
+
 function getRequestById( $requestId )
 {
 	$db = dpconnexion();
@@ -93,6 +105,20 @@ function createProposal( $resquestId )
 	return $idProposal;
 }
 
+function refuseProposal($proposalId)
+{
+	$db = dpconnexion();
+	$query = "UPDATE proposition_de_projet SET acceptation=FALSE, reponse=current_date WHERE id = $proposalId;";
+    $qresult = pg_query($query);
+}
+
+function acceptProposal($proposalId)
+{
+	$db = dpconnexion();
+	$query = "UPDATE proposition_de_projet SET acceptation=TRUE, reponse=current_date WHERE id = $proposalId;";
+    $qresult = pg_query($query);
+}
+
 function createBudgetLine($proposalId, $montant, $objet, $financeType)
 {
 	$db = dpconnexion();
@@ -108,6 +134,36 @@ function getBudgetLines($proposalId)
 		@"SELECT * FROM 
 			ligne_budgetaire
 			WHERE projet = $proposalId;";
+
+    $qresults = pg_query($query);
+	//pg_close($db);
+
+	return $qresults;
+}
+
+function insertLabel($mail, $proposalId, $label) {
+	$db = dpconnexion();
+
+	// Retrieve the rigth "entite juridique"
+	$financer = getEmployeeFinancer($mail);
+	$financer = pg_fetch_assoc($financer);
+	$entite = $financer['nom'];
+
+	// Insert label	
+	$query = 
+		@"INSERT INTO donne_label(
+            entite_juridique, proposition_de_projet, label)
+    	  VALUES ('$entite', $proposalId, '$label');";
+    $qresult = pg_query($query);
+}
+
+function getLabels($proposalId)
+{
+	$db = dpconnexion();
+	$query = 
+		@"SELECT label FROM 
+			donne_label
+			WHERE proposition_de_projet = $proposalId;";
 
     $qresults = pg_query($query);
 	//pg_close($db);
