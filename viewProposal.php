@@ -1,7 +1,10 @@
 <?php
 include_once("conf.php");
 include_once("dataprovider.php");
-session_start();
+
+include('header.php'); 
+include('header_info.php'); 
+include('menu.php'); 
 
 if (isset($_GET['proposalId']))
 {
@@ -65,14 +68,14 @@ if (isset($_GET['proposalId']))
 				<li>
 					Donner un label : 
 						<input type="text" name="label">
-						<input type="submit" name="labelSubmit" value="Valider">
+						<input type="submit" class="btn btn-link" name="labelSubmit" value="Ajouter">
 				</li>
 				<?php if($proposal['acceptation'] == null) { ?>
 				<li>
-						<input type="submit" name="acceptSubmit" value="Accepter la proposition">
+						<input type="submit" class="btn btn-success" name="acceptSubmit" value="Accepter la proposition">
 				</li>
 				<li>
-						<input type="submit" name="refuseSubmit" value="Refuser la proposition">
+						<input type="submit" class="btn btn-warning" name="refuseSubmit" value="Refuser la proposition">
 				</li>
 				<?php } ?>
 			</ul>
@@ -87,4 +90,5 @@ else {
 
 <?php
 dpdisconnect();
+include('footer.php');
 ?>

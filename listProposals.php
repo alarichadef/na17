@@ -1,7 +1,10 @@
 <?php
 include_once("conf.php");
 include_once("dataprovider.php");
-session_start();
+
+include('header.php'); 
+include('header_info.php'); 
+include('menu.php'); 
 
 // AFFICHAGE POUR EMPLOYE DE CONTACT
 if($_SESSION['role'] == 'employe_de_contact')
@@ -62,8 +65,14 @@ else {
                             <?php
      $proposals = getProposals();
     while($result = pg_fetch_array($proposals)){
-            echo "<tr><td>".$result['description']."</td><td>".$result['acceptation']."</td><td>".$result['reponse']."</td>";
-            echo "<td><button>Voir</button></td></tr>";
+            echo "<tr><td>".$result['description']."</td><td>";
+            if ($result['acceptation'] == null)
+                    echo "En attente";
+                    elseif ($result['acceptation'] == 't')
+                        echo "Accept&eacute;";
+                    else
+                        echo "Refus&eacute;";
+            echo "</td><td>".$result['reponse']."</td><td><button>Voir</button></td></tr>";
     }
     ?>
                     </tbody>
@@ -71,5 +80,6 @@ else {
 <?php
 }
 dpdisconnect();
+include('footer.php');
 ?>
 

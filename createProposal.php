@@ -1,10 +1,19 @@
 <?php
 include_once("conf.php");
 include_once("dataprovider.php");
-session_start();
+
+include('header.php'); 
+include('header_info.php'); 
+include('menu.php'); 
+
+if(isset($_POST['proposalSubmit']))
+{
+	echo "<p>Proposition enregistrée, redirection...</p>";
+	echo '<meta http-equiv="refresh" content="2;URL=listProposals.php">';
+}
 
 if($_SESSION['role'] == 'membre_du_laboratoire')
-{
+{	
 	if (isset($_GET['requestId']))
 	{
 		$resquestId = intval($_GET['requestId']);
@@ -20,6 +29,7 @@ if($_SESSION['role'] == 'membre_du_laboratoire')
 			$financeType =  htmlspecialchars($_POST['financeType']);
 			createBudgetLine($proposalId, $montant, $objet, $financeType);
 		}
+
 ?>
 	<h3>Lignes budgetaires :</h3>
 <?php
@@ -44,20 +54,37 @@ if($_SESSION['role'] == 'membre_du_laboratoire')
 	
 ?>
 	<h3>Ajouter une ligne :</h3>
-	<form action="/createProposal.php?requestId=<?php echo $resquestId; ?>&proposalId=<?php echo $proposalId; ?>" method="POST">
+	<form class="form-vertical" action="/createProposal.php?requestId=<?php echo $resquestId; ?>&proposalId=<?php echo $proposalId; ?>" method="POST">
 		<input type="hidden" name="proposalId" value="<?php echo $proposalId; ?>">
-		Montant : 
-		<input name="montant" type="text"><br>
-		Objet : 
-		<input name="objet" type="text"><br>
-		Type financement : 
-		<input type="radio" name="financeType" value="materiel">Materiel<br>
-		<input type="radio" name="financeType" value="fonctionnement">Fonctionnement
-		<input name="budgetLine" type="submit" value="Ajouter ligne">
+		<div class="form-group">
+		    <label for="montant">Montant</label>
+		    <input type="text" class="form-control" name="montant">
+		</div>
+		<div class="form-group">
+		    <label for="objet">Objet</label>
+		    <input type="text" class="form-control" name="objet">
+		</div>
+		<div class="form-group">
+			<label>Type financement : </label>
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="financeType" value="materiel">
+			    Materiel
+			  </label>
+			</div>
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="financeType" value="fonctionnement">
+			    Fonctionnement
+			  </label>
+			</div>
+		</div>
+		<input name="budgetLine" type="submit" class="btn btn-default" value="Ajouter">
 	</form>
 
+	<h3>Validation</h3>
 	<form action="/createProposal.php" method="POST">
-		<input name="proposal" type="submit" value="Valider la proposition">
+		<input name="proposalSubmit" type="submit" class="btn btn-primary" value="Terminer la proposition">
 	</form>
 
 <?php
@@ -68,4 +95,5 @@ else
 	echo "<p>Acces refuse</p>";
 }
 dpdisconnect();
+include('footer.php');
 ?>
