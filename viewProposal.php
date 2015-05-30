@@ -62,22 +62,19 @@ if (isset($_GET['proposalId']))
 	{
 		?>
 		<h2>Actions</h2>
-		<form action="decideProposal.php" method="POST"> 
+		<form class="form-inline" action="decideProposal.php" method="POST"> 
 			<input type="hidden" name="proposalId" value="<?php echo $proposalId;?>">
-			<ul>
-				<li>
-					Donner un label : 
-						<input type="text" name="label">
-						<input type="submit" class="btn btn-link" name="labelSubmit" value="Ajouter">
-				</li>
-				<?php if($proposal['acceptation'] == null) { ?>
-				<li>
-						<input type="submit" class="btn btn-success" name="acceptSubmit" value="Accepter la proposition">
-				</li>
-				<li>
-						<input type="submit" class="btn btn-warning" name="refuseSubmit" value="Refuser la proposition">
-				</li>
-				<?php } ?>
+			<div class="form-group">
+			    <label for="label">Donner un label</label>
+			    <input type="text" class="form-control" name="label">
+			    <input type="submit" class="btn btn-link" name="labelSubmit" value="Ajouter">
+			</div>
+			<?php if($proposal['acceptation'] == null) { ?>
+			<div class="form-group" style="display:block;margin-top:10px;">
+			    <input type="submit" class="btn btn-success" name="acceptSubmit" value="Accepter la proposition">
+			    <input type="submit" class="btn btn-warning" name="refuseSubmit" value="Refuser la proposition">
+			</div>
+			<?php } ?>
 			</ul>
 		</form>
 		<?php
