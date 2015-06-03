@@ -111,7 +111,7 @@ CREATE TABLE Financeur(
 	contact VARCHAR(30) NOT NULL REFERENCES Employe_de_contact(mail),
 	debut DATE,
 	fin DATE,
-	FOREIGN KEY (nom) REFERENCES Entite_juridique);
+	FOREIGN KEY (nom) REFERENCES Entite_juridique) ON DELETE CASCADE;
 
 CREATE VIEW vFinanceur AS
 	SELECT * FROM Entite_juridique E JOIN Financeur F using(nom);
