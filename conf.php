@@ -17,9 +17,9 @@ display_startup_errors(TRUE);*/
 // Config BDD :
 $host = "127.0.0.1";
 $port = "5432";
-$user = "postgres";
-$password = "postgres";
-$dbname = "";
+$user = "nf17p184";
+$password = "9FlAJomS";
+$dbname = "dbnf17p184";
 
 function connexion(){
 global $host, $port, $user, $password, $dbname;
