@@ -54,7 +54,7 @@ if($_SESSION['role'] == 'membre_du_laboratoire')
 	
 ?>
 	<h3>Ajouter une ligne :</h3>
-	<form class="form-vertical" action="/createProposal.php?requestId=<?php echo $resquestId; ?>&proposalId=<?php echo $proposalId; ?>" method="POST">
+	<form class="form-vertical" action="createProposal.php?requestId=<?php echo $resquestId; ?>&proposalId=<?php echo $proposalId; ?>" method="POST">
 		<input type="hidden" name="proposalId" value="<?php echo $proposalId; ?>">
 		<div class="form-group">
 		    <label for="montant">Montant</label>
@@ -83,7 +83,7 @@ if($_SESSION['role'] == 'membre_du_laboratoire')
 	</form>
 
 	<h3>Validation</h3>
-	<form action="/createProposal.php" method="POST">
+	<form action="createProposal.php" method="POST">
 		<input name="proposalSubmit" type="submit" class="btn btn-primary" value="Terminer la proposition">
 	</form>
 

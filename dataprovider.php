@@ -20,7 +20,7 @@ function dpdisconnect(){
 function getProposals()
 {
 	$db = dpconnexion();
-	$query = "SELECT * FROM proposition_de_projet p JOIN appel_a_projet a ON p.appel_a_projet = a.id ORDER BY a.description";
+	$query = "SELECT p.*, a.description FROM proposition_de_projet p JOIN appel_a_projet a ON p.appel_a_projet = a.id ORDER BY a.description";
     $qresults = pg_query($query);
 	//pg_close($db);
 
