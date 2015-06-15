@@ -35,11 +35,7 @@ define('__ROOT__', dirname(__FILE__));
 
 function validateDate($date, $format = 'Y-m-d')
 {
-<<<<<<< HEAD
-    $d = DateTime::createFromFormat($format, $date, new DateTimeZone('Europe/Paris'));
-=======
     $d = DateTime::createFromFormat($format, $date, DateTimeZone::EUROPE);
->>>>>>> c2f6edd71ced7798d8b4c2b283793b14a37c39e2
     return $d && $d->format($format) == $date;
 }
 
