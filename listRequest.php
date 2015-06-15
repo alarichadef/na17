@@ -59,13 +59,18 @@ while($result = pg_fetch_array($query)){
 <?php
 }
 else{
+    include('header.php'); 
+    include('header_info.php'); 
+    include('menu.php'); 
+    include('conf.php');
+    $db = connexion();
 ?>
 <h2>Appels à Projets</h2>
 <table class="table table-bordered table-hover table-striped">
-    <thead><tr><th>Lancement</th><th>Durée</th><th>Thème</th><th>Description</th><th>Comité</th><th>Nombre de Propositions</th><th></th><th></th></tr></thead>
+    <thead><tr><th>Lancement</th><th>Durée</th><th>Thème</th><th>Description</th><th>Comité</th><th>Nombre de Propositions</th><th></th><!-- <th></th> --></tr></thead>
                         <tbody>
     <?php 
-        $query = "SELECT * FROM appel_a_projet WHERE ORDER BY publieur, lancement;";
+        $query = "SELECT * FROM appel_a_projet ORDER BY publieur, lancement;";
         $query = pg_query($query);
     
 while($result = pg_fetch_array($query)){
@@ -77,22 +82,13 @@ while($result = pg_fetch_array($query)){
 
     ?>
 
-    <td>
+   <!--  <td>
         <form action="listProposals.php">
             <input type="hidden" name="projectRequest" value="<?php echo $result['id']; ?>">
             <button class="btn btn-info">Voir les Propositions</button>
         </form>
-    </td>
-        <form action="createRequest.php?organisme=<?php echo $organisme; ?>" method="post">
-            <input type="hidden" name="lancement" value="<?php echo $result['lancement']; ?>">
-            <input type="hidden" name="theme" value="<?php echo $result['theme']; ?>">
-            <input type="hidden" name="description" value="<?php echo $result['description']; ?>">
-            <input type="hidden" name="duree" value="<?php echo $result['duree']; ?>">
-            <input type="hidden" name="comite" value="<?php echo $result['comite']; ?>">
-            <input type="hidden" name="lancement" value="<?php echo $result['lancement']; ?>">
-            <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
-        </form>
-        <td><input type="button btn-info" onClick="createProposal.php?requestId=<?php echo $result['id']; ?>" value="Ajouter une Proposition"></td>
+    </td> -->
+        <td><button class="btn btn-info" onClick="document.location.href='createProposal.php?requestId=<?php echo $result['id']; ?>'">Ajouter une Proposition</button></td>
     </tr>
 <?php
 }
@@ -102,5 +98,7 @@ while($result = pg_fetch_array($query)){
 
 
 <?php
+pg_close($db);
+include('footer.php');
 }
 ?>
