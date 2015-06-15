@@ -111,11 +111,8 @@ CREATE TABLE Financeur(
 	contact VARCHAR(30) NOT NULL REFERENCES Employe_de_contact(mail),
 	debut DATE,
 	fin DATE,
-<<<<<<< HEAD
-	FOREIGN KEY (nom) REFERENCES Entite_juridique);
-=======
 	FOREIGN KEY (nom) REFERENCES Entite_juridique ON DELETE CASCADE);
->>>>>>> c2f6edd71ced7798d8b4c2b283793b14a37c39e2
+
 
 CREATE VIEW vFinanceur AS
 	SELECT * FROM Entite_juridique E JOIN Financeur F using(nom);
@@ -179,7 +176,7 @@ CREATE TABLE Projet(
 
 -- MODIF: Projet est composé de dépenses
 
-<<<<<<< HEAD
+
 CREATE TYPE Etat_depense AS ENUM ('En cours', 'Valide', 'Refuse');
 
 
@@ -191,17 +188,10 @@ CREATE TABLE Depense(
 	Validateur VARCHAR(30) DEFAULT NULL REFERENCES Membre_du_projet(mail),
 	Demandeur VARCHAR(30) NOT NULL REFERENCES Membre_du_projet(mail),
 	Etat  Etat_depense NOT NULL,
-=======
-CREATE TABLE Depense(
-	projet INTEGER PRIMARY KEY REFERENCES Projet(id),
-	date DATE NOT NULL,
-	montant DECIMAL NOT NULL,
->>>>>>> c2f6edd71ced7798d8b4c2b283793b14a37c39e2
 	financement Type_financement NOT NULL);
 
 -- AJOUT: 
 
-<<<<<<< HEAD
 --CREATE TABLE Validateur(
 	--projet INTEGER REFERENCES Depense(projet),
 	--membre VARCHAR(30) REFERENCES Membre_du_projet(mail),
@@ -220,16 +210,6 @@ CREATE TABLE Membre_projet(
   FOREIGN KEY  (projet) REFERENCES Projet(id),
   FOREIGN KEY (mail) REFERENCES Membre_du_projet(mail)
 );
-=======
-CREATE TABLE Validateur(
-	projet INTEGER REFERENCES Depense(projet),
-	membre VARCHAR(30) REFERENCES Membre_du_projet(mail),
-	PRIMARY KEY (projet, membre));
 
-CREATE TABLE Demandeur(
-	projet INTEGER REFERENCES Depense(projet),
-	membre VARCHAR(30) REFERENCES Membre_du_projet(mail),
-	PRIMARY KEY (projet, membre));
->>>>>>> c2f6edd71ced7798d8b4c2b283793b14a37c39e2
 
  COMMIT;

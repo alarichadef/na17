@@ -175,7 +175,6 @@ function getLabels($proposalId)
 	return $qresults;
 }
 
-<<<<<<< HEAD
 function getProjects()
 {
 	$db = dpconnexion();
@@ -308,6 +307,4 @@ function createProject($debut,$fin,$proposition)
 
 
 ?>
-=======
-?>
->>>>>>> c2f6edd71ced7798d8b4c2b283793b14a37c39e2
+

@@ -32,7 +32,7 @@ INSERT INTO financeur (nom, contact, debut, fin) VALUES ('Picardie', 'antoine.je
 INSERT INTO contributeur_externe VALUES ('alaric.hadef@etu.utc.fr', 'Picardie');
 COMMIT;
 
-<<<<<<< HEAD
+
 Insert into organisme_de_projet VALUES ('orga1','2015-01-05',150,'actif');
 Insert into organisme_de_projet VALUES ('orga2','2014-04-05',100,'inactif');
 
@@ -51,5 +51,4 @@ Insert into membre_projet(10,'alaric.hadef@etu.utc.fr');
 
 Insert into depense (projet,date,montant,demandeur,validateur,etat,financement) values (9,'2015-02-02',200,'paul.jenny@etu.utc.fr',NULL,'En cours','fonctionnement');
 Insert into depense (projet,date,montant,demandeur,validateur,etat,financement) values (9,'2015-02-02',200,'adrien.hubner@etu.utc.fr','paul.jenny@etu.utc.fr','Valide','fonctionnement');
-=======
->>>>>>> c2f6edd71ced7798d8b4c2b283793b14a37c39e2
+
