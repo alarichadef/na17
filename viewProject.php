@@ -54,14 +54,15 @@ if (isset($_GET['projectId']))
 		<tr><td> 
 		<?php
 			$nonMemres = getNonMembresProjet($projectId);
+			<form action="viewProject.php">
+				<input type="hidden" name="projectId" value="<?php echo $projectId; ?>">
+				<select name="mail[]" multiple="multiple" size="10">
 			while($result = pg_fetch_array($nonMemres)){
 			$fonction_mail = getNomsMails($result['mail']);
 			$fonction_mail  = pg_fetch_array($fonction_mail);
 
 		?>
-			<form action="viewProject.php">
-				<input type="hidden" name="projectId" value="<?php echo $projectId; ?>">
-				<select name="mail[]" multiple="multiple" size="10">
+
 				<?php
 					echo '<option value= '.$result['mail'].'>'.$fonction_mail['nom']." ".$result['mail']." ".$fonction_mail['fonction'].'</option> ';
 				}
