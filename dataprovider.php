@@ -20,7 +20,11 @@ function dpdisconnect(){
 function getProposals()
 {
 	$db = dpconnexion();
+<<<<<<< HEAD
 	$query = "SELECT p.*,a.description FROM proposition_de_projet p JOIN appel_a_projet a ON p.appel_a_projet = a.id ORDER BY a.description";
+=======
+	$query = "SELECT p.*, a.description FROM proposition_de_projet p JOIN appel_a_projet a ON p.appel_a_projet = a.id ORDER BY a.description";
+>>>>>>> c2f6edd71ced7798d8b4c2b283793b14a37c39e2
     $qresults = pg_query($query);
 	//pg_close($db);
 
@@ -171,6 +175,7 @@ function getLabels($proposalId)
 	return $qresults;
 }
 
+<<<<<<< HEAD
 function getProjects()
 {
 	$db = dpconnexion();
@@ -303,3 +308,6 @@ function createProject($debut,$fin,$proposition)
 
 
 ?>
+=======
+?>
+>>>>>>> c2f6edd71ced7798d8b4c2b283793b14a37c39e2
