@@ -1,5 +1,6 @@
 <?php
-if(isset($organisme)){
+if(isset($organisme)) //clef de l'organisme en variable globale pour afficher ses appels à projet
+{
 ?>
 <script>
 function deleteRequest(id){
@@ -63,6 +64,8 @@ else{
     include('header_info.php'); 
     include('menu.php'); 
     include('conf.php');
+
+if(isset($_SESSION['role']) AND $_SESSION['role'] == 'membre_du_laboratoire') {
     $db = connexion();
 ?>
 <h2>Appels à Projets</h2>
@@ -99,6 +102,11 @@ while($result = pg_fetch_array($query)){
 
 <?php
 pg_close($db);
+}
+elseif(isset($_SESSION['role']) AND $_SESSION['role'] == 'employe_de_contact') {?>
+    <script>document.location.href='contactEmployeDashboard.php';</script>
+<?php
+}
 include('footer.php');
 }
 ?>

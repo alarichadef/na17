@@ -27,10 +27,10 @@
 					}
 					if($_SESSION['role'] == 'employe_de_contact'){
 					?>
-						<li><a href="listRequest.php">Liste des appels à projets</a></li>
-						<li><a href="listProposals.php">Liste des propositions de projet</a></li> 
-						<li><a href="listFinancers.php">Liste des Financeurs</a></li>
-						<li><a href="listProjects.php">Liste des Projets</a></li>
+<!-- 						<li><a href="listRequest.php">Liste des appels à projets</a></li>
+ -->					<!-- <li><a href="contactEmployeDashboard.php#projets">Liste des propositions de projet</a></li>  -->
+						<li><a href="contactEmployeDashboard.php#financeurs">Liste des Financeurs</a></li>
+						<li><a href="contactEmployeDashboard.php#projets">Liste des Organismes de Projet</a></li>
 						<li><a href="listExpenses.php">Liste des dépenses</a></li>
 					<?php
 					}

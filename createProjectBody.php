@@ -6,7 +6,8 @@ if(isset($_GET['action']) AND $_GET['action'] == "new"){
         $check = pg_query($check);
         $ok = 0;
         while($result = pg_fetch_array($check)){
-            if(isset($_GET[$result['nom']])) $ok=1;
+             $tmp = str_replace(" ", "_", $result['nom']); 
+            if(isset($_GET[$tmp]))$ok=1;
                          }
     pg_close($db);
          if($ok == 0){
@@ -24,7 +25,8 @@ if(isset($_GET['action']) AND $_GET['action'] == "new"){
         $check = pg_query($check);
         $ok = 0;
         while($result = pg_fetch_array($check)){
-            if(isset($_GET[$result['nom']])) $ok=1;
+             $tmp = str_replace(" ", "_", $result['nom']); 
+            if(isset($_GET[$tmp]))$ok=1;
                          }
          if($ok == 0){
     ?>
@@ -36,6 +38,7 @@ if(isset($_GET['action']) AND $_GET['action'] == "new"){
         $query = pg_query($query)or die(pg_last_error());
         foreach($_GET as $valeur){
             if($valeur != "new"){
+            $valeur = str_replace("_", " ", $valeur); 
             $query = "INSERT INTO assoc_financeur_organisme VALUES ('".$valeur."','".$nom."');";
             pg_query($query)or die(pg_last_error());
             }
@@ -83,7 +86,7 @@ if(isset($_GET['action']) AND $_GET['action'] == "new"){
 }
 ?>
 
-<h2>Liste de mes Financeurs</h2>
+<h2 name="financeurs">Liste de mes Financeurs</h2>
 <form class="form" role="form" action="" method="get">
  <div class="form-group">
      <input type="hidden" name="action" value="new">
@@ -112,7 +115,7 @@ while($result = pg_fetch_array($query)){
 <input type="submit" class="btn btn-primary" id="submit"value="Créer un nouvel Organisme de projet">
 </div>
 </form>
-<h2>Organismes de Projets</h2>                    
+<h2 name="projets">Organismes de Projets</h2>                    
 <table class="table table-bordered table-hover table-striped">
     <thead><tr><th>Nom</th><th>Création</th><th>Durée</th><th>Etat</th><th>Financeurs</th><th></th></tr></thead>
                         <tbody>
