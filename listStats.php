@@ -49,7 +49,7 @@ while($result = pg_fetch_array($requests)){
 
 
 
-<h2>Classements des membres affectes aux plus de projet</h2>
+<h2>Classements des projets avec le plus de membres</h2>
 <table class="table table-bordered table-hover table-striped">
     <thead><tr><th>Id projet</th><th>Description du projet</th><th>Nombre de membres</th></tr></thead>
                         <tbody>
