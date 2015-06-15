@@ -11,7 +11,7 @@
 					?>
 						<li><a href="listRequest.php">Liste des appels à projets</a></li>
 						<li><a href="listProposals.php">Liste des propositions de projet</a></li> 
-						<li><a href="listFinancers.php">Liste des Financeurs</a></li>
+						<li><a href="financerDashboard.php">Liste des Financeurs</a></li>
 						<li><a href="listProjects.php">Liste des Projets</a></li>
 						<li><a href="listExpenses.php">Liste des dépenses</a></li>
 					<?php
@@ -20,7 +20,7 @@
 					?>
 						<li><a href="listRequest.php">Liste des appels à projets</a></li>
 						<li><a href="listProposals.php">Liste des propositions de projet</a></li> 
-						<li><a href="listFinancers.php">Liste des Financeurs</a></li>
+						<li><a href="financerDashboard.php">Liste des Financeurs</a></li>
 						<li><a href="listProjects.php">Liste des Projets</a></li>
 						<li><a href="listExpenses.php">Liste des dépenses</a></li>
 					<?php
