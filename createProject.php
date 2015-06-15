@@ -20,6 +20,7 @@ if (isset($_GET['proposalId']))
 					{
 					setMembresProjet($projet['id'],$newmembre);	  
 					}
+		echo '<meta http-equiv="refresh" content="0,2;URL=listProjects.php">';
 		}			}
 		else echo "Renseignez tout les champs";
 ?>
