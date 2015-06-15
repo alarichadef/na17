@@ -9,8 +9,8 @@
 				<?php
 					if($_SESSION['role'] == 'membre_du_laboratoire'){
 					?>
-						<li><a href="listRequest.php">Liste des requetes</a></li>
-						<li><a href="listProposals">Liste des propositions de projet</a></li> 
+						<li><a href="listRequest.php">Liste des appels à projets</a></li>
+						<li><a href="listProposals.php">Liste des propositions de projet</a></li> 
 						<li><a href="listFinancers.php">Liste des Financeurs</a></li>
 						<li><a href="listProjects.php">Liste des Projets</a></li>
 						<li><a href="listExpenses.php">Liste des dépenses</a></li>
@@ -18,8 +18,8 @@
 					}
 					if($_SESSION['role'] == 'webmaster'){
 					?>
-						<li><a href="listRequest.php">Liste des requetes</a></li>
-						<li><a href="listProposals">Liste des propositions de projet</a></li> 
+						<li><a href="listRequest.php">Liste des appels à projets</a></li>
+						<li><a href="listProposals.php">Liste des propositions de projet</a></li> 
 						<li><a href="listFinancers.php">Liste des Financeurs</a></li>
 						<li><a href="listProjects.php">Liste des Projets</a></li>
 						<li><a href="listExpenses.php">Liste des dépenses</a></li>
@@ -27,8 +27,8 @@
 					}
 					if($_SESSION['role'] == 'employe_de_contact'){
 					?>
-<li><a href="listRequest.php">Liste des requetes</a></li>
-						<li><a href="listProposals">Liste des propositions de projet</a></li> 
+						<li><a href="listRequest.php">Liste des appels à projets</a></li>
+						<li><a href="listProposals.php">Liste des propositions de projet</a></li> 
 						<li><a href="listFinancers.php">Liste des Financeurs</a></li>
 						<li><a href="listProjects.php">Liste des Projets</a></li>
 						<li><a href="listExpenses.php">Liste des dépenses</a></li>
