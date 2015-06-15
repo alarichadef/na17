@@ -14,6 +14,7 @@
 						<li><a href="financerDashboard.php">Liste des Financeurs</a></li>
 						<li><a href="listProjects.php">Liste des Projets</a></li>
 						<li><a href="listExpenses.php">Liste des dépenses</a></li>
+						<li><a href="listStats.php">Liste des statistiques</a></li>
 					<?php
 					}
 					if($_SESSION['role'] == 'webmaster'){
@@ -23,6 +24,7 @@
 						<li><a href="financerDashboard.php">Liste des Financeurs</a></li>
 						<li><a href="listProjects.php">Liste des Projets</a></li>
 						<li><a href="listExpenses.php">Liste des dépenses</a></li>
+						<li><a href="listStats.php">Liste des statistiques</a></li>
 					<?php
 					}
 					if($_SESSION['role'] == 'employe_de_contact'){
