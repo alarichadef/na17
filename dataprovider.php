@@ -20,7 +20,7 @@ function dpdisconnect(){
 function getProposals()
 {
 	$db = dpconnexion();
-	$query = "SELECT * FROM proposition_de_projet p JOIN appel_a_projet a ON p.appel_a_projet = a.id ORDER BY a.description";
+	$query = "SELECT p.*, a.description FROM proposition_de_projet p JOIN appel_a_projet a ON p.appel_a_projet = a.id ORDER BY a.description";
     $qresults = pg_query($query);
 	//pg_close($db);
 
@@ -173,23 +173,12 @@ function getLabels($proposalId)
 	return $qresults;
 }
 
-function getProjets()
+function getProjects()
 {
 	$db = dpconnexion();
 	$query =
 		@"SELECT * FROM
 			projet";
-	$qresults = pg_query($db, $query);
-
-	return $qresults;
-}
-
-function getDepensesByProjet($projetId)
-{
-	$db = dpconnexion();
-	$query =
-		@"SELECT * FROM
-			depense WHERE projet = ".$projetId.";"
 	$qresults = pg_query($db, $query);
 
 	return $qresults;
@@ -252,6 +241,125 @@ function creerMembreLaboratoire($mail, $nom, $fonction, $type, $domaine, $quotit
 	$query = "INSERT INTO Membre_du_laboratoire VALUES ('".$mail."', '".$type."', '".$domaine."', '".$quotite."', 
 		'".$etablissement."', '".$sujet."', '".$debut."';";
 	pg_query($db, $query);
+}
+
+function getDepenses($projectId)
+{
+	$db = dpconnexion();
+		$query = 
+			@"SELECT * FROM 
+				Depense
+				WHERE projet = $projectId";
+
+		$qresults = pg_query($query);
+		//pg_close($db);
+
+		return $qresults;
+}
+
+function getMembresProjet($projectId)
+{
+	$db = dpconnexion();
+		$query = 
+			@"SELECT mail FROM 
+				Membre_projet
+				WHERE projet = $projectId";
+
+		$qresults = pg_query($query);
+		//pg_close($db);
+
+		return $qresults;
+}
+
+function getNonMembresProjet($projectId)
+{
+	$db = dpconnexion();
+		$query = 
+			@"SELECT DISTINCT mail FROM 
+				Membre_projet
+				WHERE mail not in (select mail from membre_projet where projet = $projectId)";
+
+		$qresults = pg_query($query);
+		//pg_close($db);
+
+		return $qresults;
+}
+
+
+function getNomsMails($mail)
+{
+	$db = dpconnexion();
+		$query = 
+			@"SELECT fonction,nom FROM 
+				Membre_du_projet, Personne
+				WHERE Membre_du_projet.mail = '$mail' and Personne.mail = '$mail'";
+
+		$qresults = pg_query($query);
+		//pg_close($db);
+
+		return $qresults;
+}
+
+function getProjectById($project)
+{
+	$db = dpconnexion();
+		$query = 
+			@"SELECT * FROM 
+				Projet
+				WHERE id = $project";
+
+		$qresults = pg_query($query);
+		//pg_close($db);
+
+		return $qresults;
+}
+
+
+function setMembresProjet($project,$mail)
+{
+	$db = dpconnexion();
+		$query = 
+			@"Insert into Membre_projet VALUES ($project,'$mail')";
+
+		$qresults = pg_query($query);
+		//pg_close($db);
+}
+
+
+function getAllMembres()
+{
+	$db = dpconnexion();
+		$query = 
+			@"Select * from membre_du_projet";
+
+		$qresults = pg_query($query);
+		//pg_close($db);
+		return $qresults;
+
+}
+
+function getProjectByProposition($proposition)
+{
+	$db = dpconnexion();
+		$query = 
+			@"Select * from projet where proposition = $proposition";
+
+		$qresults = pg_query($query);
+		//pg_close($db);
+		return $qresults;
+
+}
+
+
+function createProject($debut,$fin,$proposition)
+{
+	$db = dpconnexion();
+		$query = 
+			@"Insert into Projet(debut,fin,proposition) VALUES ('$debut','$fin',$proposition)";
+
+		$qresults = pg_query($query);
+		//pg_close($db);
+		return $qresults;
 }
 
 ?>

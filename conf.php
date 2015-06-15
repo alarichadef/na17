@@ -17,9 +17,9 @@ display_startup_errors(TRUE);*/
 // Config BDD :
 $host = "127.0.0.1";
 $port = "5432";
-$user = "postgres";
-$password = "postgres";
-$dbname = "";
+$user = "nf17p184";
+$password = "9FlAJomS";
+$dbname = "dbnf17p184";
 
 function connexion(){
 global $host, $port, $user, $password, $dbname;
@@ -35,7 +35,11 @@ define('__ROOT__', dirname(__FILE__));
 
 function validateDate($date, $format = 'Y-m-d')
 {
-    $d = DateTime::createFromFormat($format, $date);
+<<<<<<< HEAD
+    $d = DateTime::createFromFormat($format, $date, new DateTimeZone('Europe/Paris'));
+=======
+    $d = DateTime::createFromFormat($format, $date, DateTimeZone::EUROPE);
+>>>>>>> c2f6edd71ced7798d8b4c2b283793b14a37c39e2
     return $d && $d->format($format) == $date;
 }
 

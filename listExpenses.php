@@ -2,7 +2,7 @@
 if (isset($_GET["projet"]))
 {
 	$projetId = intval($_GET["projet"]);
-	$depenses = getDepensesByProjet($projetId);
+	$depenses = getDepenses($projetId);
 ?>
 <h2>Liste des dépenses</h2>
 <table class="table table-bordered table-hover table-striped">

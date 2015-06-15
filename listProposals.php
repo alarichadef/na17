@@ -10,7 +10,7 @@ include('menu.php');
 if($_SESSION['role'] == 'employe_de_contact')
 {
         ?>
-        <form class="form-inline" action="/listProposals.php" method="GET">
+        <form class="form-inline" action="listProposals.php" method="GET">
         <p> Choisir l'appel à projet : 
             <select name="projectRequest" class="form-control">
             <?php
@@ -18,7 +18,11 @@ if($_SESSION['role'] == 'employe_de_contact')
             $financer = pg_fetch_array($financer);
           $requests = getRequestsByFinancer($financer['nom']);
          while($result = pg_fetch_array($requests)){
-            echo "<option value='".$result['id']."'>".$result['description']."</option>";
+            if (isset($_GET['projectRequest']) && ($_GET['projectRequest'] == $result['id'])){
+                echo "<option value='".$result['id']."' selected>".$result['description']."</option>";
+            } else {
+                echo "<option value='".$result['id']."'>".$result['description']."</option>";                
+            }
         }
         ?>
          </select> <input type="submit" class="btn btn-primary" value="Valider"></form>

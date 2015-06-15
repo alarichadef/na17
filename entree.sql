@@ -32,3 +32,23 @@ INSERT INTO financeur (nom, contact, debut, fin) VALUES ('Picardie', 'antoine.je
 INSERT INTO contributeur_externe VALUES ('alaric.hadef@etu.utc.fr', 'Picardie');
 COMMIT;
 
+
+Insert into organisme_de_projet VALUES ('orga1','2015-01-05',150,'actif');
+Insert into organisme_de_projet VALUES ('orga2','2014-04-05',100,'inactif');
+
+Insert into appel_a_projet (lancement,duree,theme,description,publieur,comite) VALUES ('2015-02-03',200,'Vaccin','Vaccin ebola','orga1','NA17');
+Insert into appel_a_projet (lancement,duree,theme,description,publieur,comite) VALUES ('2015-04-01',200,'Grippe','Grippe ebola','orga2','NA17');
+
+
+Insert into proposition_de_projet (reponse,acceptation,appel_a_projet) VALUES ('2015-06-06',true,1);
+Insert into proposition_de_projet (reponse,acceptation,appel_a_projet) VALUES ('2015-04-06',false,2);
+
+insert into projet(debut,fin,proposition) VALUES ('2015-01-01','2015-08-01',1);
+insert into projet(debut,fin,proposition) VALUES ('2015-07-01','2015-08-01',2);
+
+Insert into membre_projet(9,'paul.jenny@etu.utc.fr');
+Insert into membre_projet(10,'alaric.hadef@etu.utc.fr');
+
+Insert into depense (projet,date,montant,demandeur,validateur,etat,financement) values (9,'2015-02-02',200,'paul.jenny@etu.utc.fr',NULL,'En cours','fonctionnement');
+Insert into depense (projet,date,montant,demandeur,validateur,etat,financement) values (9,'2015-02-02',200,'adrien.hubner@etu.utc.fr','paul.jenny@etu.utc.fr','Valide','fonctionnement');
+

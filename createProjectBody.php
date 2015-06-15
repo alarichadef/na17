@@ -32,7 +32,7 @@ if(isset($_GET['action']) AND $_GET['action'] == "new"){
 <?php
          }
         else{        
-        $query = "INSERT INTO organisme_de_projet VALUES ('".$nom."','".date('Y-m-d')."','".$duree."','actif');";
+        $query = "INSERT INTO organisme_de_projet VALUES ('".$nom."',current_date,'".$duree."','actif');";
         $query = pg_query($query)or die(pg_last_error());
         foreach($_GET as $valeur){
             if($valeur != "new"){
@@ -42,10 +42,10 @@ if(isset($_GET['action']) AND $_GET['action'] == "new"){
         }
     echo '<script> alert("Organisme de Projet ajouté avec succès !"); </script>';
     ?>
-    <meta http-equiv="refresh" content="0;URL='contactEmployeDashboard.php'">
+    
 <?php
 }
-    close($db);
+    pg_close($db);
     }
         elseif(isset($_POST['send'])){
 ?>    
@@ -58,14 +58,14 @@ if(isset($_GET['action']) AND $_GET['action'] == "new"){
  <div class="form-group">
  <label for="inputEmail1" class="col-lg-2 control-label">Nom </label>
  <div class="col-lg-10">
-   <input type="text" class="form-control" value="<?php echo $_POST['nom']; ?>" name="nom" id="inputEmail1" placeholder="Nom de l'Organisme">
+   <input type="text" class="form-control" value="<?php if(isset($_POST['nom'])) echo $_POST['nom']; ?>" name="nom" id="inputEmail1" placeholder="Nom de l'Organisme">
  </div>
  </div>
 <div class="form-group">
  <label for="duree" class="col-lg-2 control-label">Durée </label>
   <div class="controls">
     <div class="col-lg-10">
-      <input id="duree" name="duree" value="<?php echo $_POST['duree']; ?>" class="form-control" placeholder="Nombre de Mois" value="0" type="text">
+      <input id="duree" name="duree" value="<?php if(isset($_POST['duree'])) echo $_POST['duree']; ?>" class="form-control" placeholder="Nombre de Mois" value="0" type="text">
     </div>
   </div>
 </div>

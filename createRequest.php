@@ -11,9 +11,9 @@ if(isset($_GET['organisme']) AND $_GET['organisme'] != ""){
     $query = "SELECT COUNT(*) FROM financeur F JOIN assoc_financeur_organisme A ON F.nom = A.financeur WHERE A.organisme ='".$organisme."' AND F.contact = '".$contact."';";
     $query = pg_query($query)or die(pg_last_error());
     $result = pg_fetch_array($query);
-    if($result[0] <= 0) //Acces non-autorisé
+    if($result[0] <= 0) //Acces non-autorisé 
      echo "<script> document.location.href='index.php';</script>";
-
+ 
 if(isset($_POST['send']))//AJOUT
 {
     if(validateDate($_POST['lancement']) AND is_numeric($_POST['duree']) AND $_POST['comite'] != ""){
@@ -29,6 +29,7 @@ if(isset($_POST['send']))//AJOUT
         ('".$lancement."',".$duree.",'".$description."','".$theme."','".$organisme."','".$comite."');";
         pg_query($query)or die(pg_last_error());
         ?>
+
 <script>alert('Appel à projet ajouté avec succès !'); 
         location.href='projectOrganismDashboard.php?organisme=<?php echo $organisme; ?>';</script>
 
@@ -38,6 +39,7 @@ if(isset($_POST['send']))//AJOUT
         $query = "UPDATE appel_a_projet SET lancement='".$lancement."',duree=".$duree.",description='".$description."',theme='".$theme."',publieur='".$organisme."',comite='".$comite."' WHERE id=".$id.";";
         pg_query($query)or die(pg_last_error());
         ?>
+
 <script>alert('Appel à projet modifié avec succès !'); 
         location.href='projectOrganismDashboard.php?organisme=<?php echo $organisme; ?>';</script>
 
@@ -55,14 +57,14 @@ if(isset($_POST['send']))//AJOUT
  <div class="form-group">
  <label for="inputEmail1" class="col-md-3 control-label">Lancement </label>
  <div class="col-md-9">
-   <input type="date" value="<?php echo $_POST['lancement']; ?>" class="form-control" required="" name="lancement" id="inputEmail1" placeholder="Date de Lancement (AAAA-MM-DD)">
+   <input type="date" value="<?php if(isset($_POST['lancement'])) echo $_POST['lancement']; ?>" class="form-control" required="" name="lancement" id="inputEmail1" placeholder="Date de Lancement (AAAA-MM-DD)">
  </div>
  </div>
 <div class="form-group">
  <label for="duree" class="col-md-3 control-label">Durée </label>
   <div class="controls">
     <div class="col-md-9">
-      <input id="duree" value="<?php echo $_POST['duree']; ?>" name="duree" class="form-control" placeholder="Nombre de Mois"  type="text">
+      <input id="duree" value="<?php if(isset($_POST['duree'])) echo $_POST['duree']; ?>" name="duree" class="form-control" placeholder="Nombre de Mois"  type="text">
     </div>
   </div>
 </div>
@@ -70,7 +72,7 @@ if(isset($_POST['send']))//AJOUT
  <label for="description" class="col-md-3 control-label">Description </label>
   <div class="controls">
     <div class="col-md-9">
-        <textarea class="form-control" id="description" name="description" class="form-control" placeholder="Description de l'appel" rows="3"><?php echo $_POST['description']; ?></textarea>
+        <textarea class="form-control" id="description" name="description" class="form-control" placeholder="Description de l'appel" rows="3"><?php if(isset($_POST['description'])) echo $_POST['description']; ?></textarea>
     </div>
   </div>
 </div>
@@ -78,7 +80,7 @@ if(isset($_POST['send']))//AJOUT
  <label for="theme" class="col-md-3 control-label">Thème </label>
   <div class="controls">
     <div class="col-md-9">
-      <input id="theme" name="theme" class="form-control" value="<?php echo $_POST['theme']; ?>" placeholder="Thème de l'appel" type="text">
+      <input id="theme" name="theme" class="form-control" value="<?php if(isset($_POST['theme'])) echo $_POST['theme']; ?>" placeholder="Thème de l'appel" type="text">
     </div>
   </div>
 </div>
@@ -92,7 +94,7 @@ if(isset($_POST['send']))//AJOUT
     $query = pg_query($query);
     while($result = pg_fetch_array($query)){
          echo '<option value="'.$result['nom'].'"';
-        if($_POST['comite'] == $result['nom'])echo " selected ";
+        if(isset($_POST['comite']) AND $_POST['comite'] == $result['nom'])echo " selected ";
          echo '>'.$result['nom'].'</option>';
     }
     ?>
@@ -101,7 +103,7 @@ if(isset($_POST['send']))//AJOUT
   </div>
 </div>
 
-    <input type="hidden" name="id" value="<?php echo $_POST['id']; ?>">
+    <input type="hidden" name="id" value="<?php if(isset($_POST['id'])) echo $_POST['id']; ?>">
  
 <div class="form-group">
   <div class="controls">
