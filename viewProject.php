@@ -88,14 +88,14 @@ if (isset($_GET['projectId']))
 			if($result['etat'] == 'En cours'){
 			?>
 				<td>
-			<form action="DecideExpense.php">
+			<form action="decideExpense.php">
 				<input type="hidden" name="projectId" value="<?php echo $projectId; ?>">
 				<input type="hidden" name="etat" value="<?php echo 'valide'; ?>">
 				<input type="hidden" name="expenseId" value="<?php echo $result['id']; ?>">
 				<button class="btn btn-info">Valider la dépense</button>
 			</form>
 			</td><td>
-			<form action="DecideExpense.php">
+			<form action="decideExpense.php">
 				<input type="hidden" name="projectId" value="<?php echo $projectId; ?>">
 				<input type="hidden" name="expenseId" value="<?php echo $result['id']; ?>">
 				<input type="hidden" name="etat" value="<?php echo "refus"; ?>">
@@ -108,7 +108,7 @@ if (isset($_GET['projectId']))
         ?>
          </tbody>
         </table>
-		<form action=CreatetExpense.php>
+		<form action="createExpense.php">
 				<input type="hidden" name="projectId" value="<?php echo $projectId; ?>">
             <button class="btn btn-info">Ajouter une dépense</button>
 			</form>

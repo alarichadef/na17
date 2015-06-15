@@ -1,17 +1,20 @@
 <?php
-if (isset($_GET["projet"]))
-{
-	$projetId = intval($_GET["projet"]);
-	$depenses = getDepenses($projetId);
+include_once("conf.php");
+include_once("dataprovider.php");
+include('header.php');
+include('header_info.php');
+
+include('menu.php');
+$depenses = getDepensesForMyProjects($_SESSION['login']);
 ?>
-<h2>Liste des dépenses</h2>
+<h2>Liste des dépenses associées à mes projets</h2>
 <table class="table table-bordered table-hover table-striped">
     <thead>
     	<tr>
+    		<th>Projet</th>
     		<th>Date</th>
     		<th>Montant</th>
     		<th>Financement</th>
-    		<th>Actions</th>
     	</tr>
     </thead>
     <tbody>
@@ -19,13 +22,10 @@ if (isset($_GET["projet"]))
    		while($depense = pg_fetch_array($depenses)) {
     ?>
 		<tr>
+			<td><?php echo $depense["projet"];?></td>
 			<td><?php echo $depense["date"];?></td>
 			<td><?php echo $depense["montant"];?></td>
 			<td><?php echo $depense["financement"];?></td>
-			<td>
-				<input type="button" class="btn btn-info" onclick="window.location.href='TODO'" value="Accepter">
-				<input type="button" class="btn btn-info" onclick="window.location.href='TODO'" value="Refuser">
-			</td>
 		</tr>
 	<?php
 		}
@@ -33,5 +33,5 @@ if (isset($_GET["projet"]))
     </tbody>
 </table>
 <?php
-}
+include('footer.php');
 ?>

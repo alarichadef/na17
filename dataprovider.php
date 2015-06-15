@@ -196,7 +196,7 @@ function getProjects()
 	$query =
 		@"SELECT * FROM
 			projet";
-	$qresults = pg_query($db, $query);
+	$qresults = pg_query($db, $query) or die(pg_last_error());
 
 	return $qresults;
 }
@@ -205,45 +205,46 @@ function getDepenseById($depenseId) {
 	$db = dpconnexion();
 	$query = 
 	@"SELECT * FROM
-			depense WHERE depenseId =".$depenseId.";";
+			depense WHERE id =".$depenseId.";";
 
-	$qresult = pg_query($db, $query);
+	$qresult = pg_query($db, $query) or die(pg_last_error());
 
 	return $qresult;
 }
 
 function validDepense($type_depense, $projetId) {
 	$db = dpconnexion();
-	$query = "SELECT (SUM(d.montant) - lb.montant) AS final FROM depense d, ligne_Budgetaire lb, projet p 
-	WHERE d.financement = ".$type_depense." 
-	AND p.Id =".$projetId." AND lb.projet = p.proposition AND lb.financement = ".$type_depense.";";
-	$qresult = pg_query($db, $query);
+	$query = "SELECT SUM(d.montant) - lb.montant AS final FROM depense d, ligne_Budgetaire lb, projet p 
+	WHERE d.financement = '".$type_depense."' AND p.Id = $projetId AND lb.projet = p.proposition AND lb.financement = '$type_depense'
+	GROUP BY lb.montant;";
+	$qresult = pg_query($db, $query) or die(pg_last_error());
 	$result = pg_fetch_row($qresult);
 	$montant = $result[0];
+	var_dump($montant);
 	return $montant > 0;
 }
 
 function ajouterDepense($personne, $type, $montant, $date, $projet)
 {
 	$db = dpconnexion();
-	$query = "INSERT INTO depense (projet, date, montant, Demandeur, Etat, financement) VALUES (".$projet.", ".$date.", ".$montant.", ".$personne.", En cours, ".$type.");";
+	$query = "INSERT INTO depense (projet, date, montant, Demandeur, Etat, financement) VALUES (".$projet.", '".$date."', ".$montant.", '".$personne."', 'En cours', '".$type."');";
 
-	pg_query($db, $query);
+	pg_query($db, $query) or die(pg_last_error());
 }
 
 function acceptDepense($personne, $depenseId) {
 	$db = dpconnexion();
-	$query = "UPDATE depense SET validateur = ".$personne." AND etat = 'Valide'
+	$query = "UPDATE depense SET validateur = '".$personne."' AND etat = 'Valide'
 				WHERE id =".$depenseId.";";
 
-	$qresult = pg_query($db, $query);
+	$qresult = pg_query($db, $query) or die(pg_last_error());
 }
 
 function refuseDepense($personne, $depenseId) {
 	$db = dpconnexion();
-	$query = "UPDATE depense SET validateur = ".$personne." AND valider = 'Refuse'
+	$query = "UPDATE depense SET validateur = '".$personne."' AND etat = 'Refuse'
 				WHERE id =".$depenseId.";";
-	pg_query($db, $query);
+	pg_query($db, $query) or die(pg_last_error());
 }
 
 function creerPersonne($mail, $nom) {
@@ -251,6 +252,14 @@ function creerPersonne($mail, $nom) {
 	$query = "INSERT INTO Personne (mail, nom) VALUES ('".$mail."', '".$nom."');";
 	pg_query($db, $query);
 	return true;
+}
+
+function getDepensesForMyProjects($mail) {
+	$db = dpconnexion();
+	$query = "SELECT d.id, d.projet, d.date, d.montant, d.Validateur, d.Demandeur, d.Etat, d.financement
+	FROM Depense d, Projet p, Membre_projet mp WHERE mp.projet = p.id AND mp.mail = '$mail' ORDER BY d.projet;";
+	$qresult = pg_query($db, $query) or die(pg_last_error());
+	return $qresult;
 }
 
 function creerMembreLaboratoire($mail, $nom, $fonction, $type, $domaine, $quotite, $etablissement, $sujet, $debut) {
@@ -274,6 +283,51 @@ function getDepenses($projectId)
 		//pg_close($db);
 
 		return $qresults;
+}
+
+function getBudgetTotal($projectId)
+{
+	$db = dpconnexion();
+	$query = "SELECT SUM(montant) FROM ligne_Budgetaire lb WHERE lb.projet = $projectId;";
+	$qresult = pg_query($db, $query);
+	return $qresult;
+}
+
+function getBudgetTotalByType($projectId, $type)
+{
+	$db = dpconnexion();
+	$query = "SELECT SUM(montant) FROM ligne_Budgetaire lb WHERE lb.projet = $projectId AND lb.financement = '$type';";
+	$qresult = pg_query($db, $query);
+	return $qresult;
+}
+
+function getTotalDepenses($projectId)
+{
+	$db = dpconnexion();
+	$query = "SELECT SUM(montant) FROM depense d WHERE d.projet = $projectId;";
+	$qresult = pg_query($db, $query);
+	return $qresult;
+}
+
+function getTotalDepensesByType($projectId, $type)
+{
+	$db = dpconnexion();
+	$query = "SELECT SUM(montant) FROM depense d WHERE d.projet = $projectId AND d.financement = $type;";
+	$qresult = pg_query($db, $query);
+	return $qresult;	
+}
+
+function getBudgetRestant($projectId)
+{
+	$db = dpconnexion();
+	return pg_fetch_row(getBudgetTotal($projectId)) - pg_fetch_row(getTotalDepenses($projectId));
+}
+
+function getBudgetRestantByType($projectId, $type)
+{
+	$db = dpconnexion();
+	return pg_fetch_row(getBudgetTotalByType($projectId, $type))
+	- pg_fetch_row($getTotalDepensesByType($projectId, $type));
 }
 
 function getMembresProjet($projectId)
@@ -369,6 +423,13 @@ function getProjectByProposition($proposition)
 
 }
 
+function getMyProjects($login)
+{
+	$db = dpconnexion();
+	$query = "SELECT * FROM projet p, Membre_projet mp WHERE p.id = mp.projet AND mp.mail = '$login';";
+	$qresults = pg_query($db, $query);
+	return $qresults;
+}
 
 function createProject($debut,$fin,$proposition)
 {

@@ -27,6 +27,7 @@ $port = "5432";
 $user = "postgres";
 $password = "postgres";
 $dbname = "";*/
+error_reporting(E_ALL);
 
 function connexion(){
 global $host, $port, $user, $password, $dbname;
