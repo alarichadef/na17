@@ -349,7 +349,7 @@ function getNonMembresProjet($projectId)
 	$db = dpconnexion();
 		$query = 
 			@"SELECT DISTINCT mail FROM 
-				Membre_projet
+				Membre_du_projet
 				WHERE mail not in (select mail from membre_projet where projet = $projectId)";
 
 		$qresults = pg_query($query);
