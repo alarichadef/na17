@@ -15,11 +15,18 @@ display_errors("stdout");
 display_startup_errors(TRUE);*/
 
 // Config BDD :
+// Config UTC 
 $host = "127.0.0.1";
 $port = "5432";
 $user = "nf17p184";
 $password = "9FlAJomS";
 $dbname = "dbnf17p184";
+/* // Config Adrien 
+$host = "127.0.0.1";
+$port = "5432";
+$user = "postgres";
+$password = "postgres";
+$dbname = "";*/
 
 function connexion(){
 global $host, $port, $user, $password, $dbname;
@@ -35,7 +42,7 @@ define('__ROOT__', dirname(__FILE__));
 
 function validateDate($date, $format = 'Y-m-d')
 {
-    $d = DateTime::createFromFormat($format, $date, DateTimeZone::EUROPE);
+    $d = DateTime::createFromFormat($format, $date, new DateTimeZone('Europe/Paris'));
     return $d && $d->format($format) == $date;
 }
 
