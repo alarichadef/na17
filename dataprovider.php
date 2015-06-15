@@ -6,7 +6,10 @@ $db = "";
 function dpconnexion(){
 	global $host, $port, $user, $password, $dbname, $db;
 	$connexion = "host=localhost port=$port user=$user password=$password dbname=$dbname";
-	$db = pg_connect($connexion)or die ("Oula ça craint.." . pg_last_error($db));
+	if(!pg_ping($db))
+	{
+		$db = pg_connect($connexion)or die ("Oula ça craint.." . pg_last_error($db));
+	}
 	return $db;
 }
 
@@ -31,6 +34,20 @@ function getEmployeeFinancer( $mail )
 {
 	$db = dpconnexion();
 	$query = "SELECT * FROM financeur f WHERE f.contact = '$mail'";
+    $qresult = pg_query($query);
+	//pg_close($db);
+
+	return $qresult;
+}
+
+function getRequestsByEmployee( $mail )
+{
+	$db = dpconnexion();
+	$query = 
+		@"SELECT * FROM 
+			appel_a_projet a
+			WHERE a.publieur IN (SELECT organisme FROM assoc_financeur_organisme 
+				WHERE financeur IN (SELECT nom FROM financeur f WHERE f.contact = '$mail'));";
     $qresult = pg_query($query);
 	//pg_close($db);
 
@@ -207,10 +224,10 @@ function validDepense($type_depense, $projetId) {
 function ajouterDepense($personne, $type, $montant, $date, $projet)
 {
 	$db = dpconnexion();
-	$query = "INSERT INTO depense (projet, date, montant, Demandeur, Etat, financement) 
-			VALUES (".$projet.", ".$date.", ".$montant.", ".$personne.", En cours, ".$type.");"
+	$query = "INSERT INTO depense (projet, date, montant, Demandeur, Etat, financement) VALUES (".$projet.", ".$date.", ".$montant.", ".$personne.", En cours, ".$type.");";
 
-}	pg_query($db, $query);
+	pg_query($db, $query);
+}
 
 function acceptDepense($personne, $depenseId) {
 	$db = dpconnexion();

@@ -14,9 +14,10 @@ if($_SESSION['role'] == 'employe_de_contact')
         <p> Choisir l'appel à projet : 
             <select name="projectRequest" class="form-control">
             <?php
-            $financer = getEmployeeFinancer($_SESSION['login']);
-            $financer = pg_fetch_array($financer);
-          $requests = getRequestsByFinancer($financer['nom']);
+            //$financer = getEmployeeFinancer($_SESSION['login']);
+            //$financer = pg_fetch_array($financer);
+          //$requests = getRequestsByFinancer($financer['nom']);
+            $requests = getRequestsByEmployee($_SESSION['login']);
          while($result = pg_fetch_array($requests)){
             if (isset($_GET['projectRequest']) && ($_GET['projectRequest'] == $result['id'])){
                 echo "<option value='".$result['id']."' selected>".$result['description']."</option>";
