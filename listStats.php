@@ -20,7 +20,7 @@ include('menu.php');
 
 		$results = pg_query($query);
 while($result = pg_fetch_array($results)){
-       echo "<tr><td>".$result['projet']."</td><td>".$result['montant']."</td><td>".$result['fin']."</td></tr>";
+       echo "<tr><td>".$result['projet']."</td><td>".$result['moyenne']."</td></tr>";
 
 }
 ?>
@@ -35,11 +35,11 @@ while($result = pg_fetch_array($results)){
     <?php 
 		$db = dpconnexion();
 		$query = 
-			@"select membre_projet.mail, nom, count(projet) as nombre from membre_projet, personne where personne.mail = membre_projet.mail group by membre_projet.mail, nom order by nombre desc";
+			@"select membre_projet.mail as m, nom, count(projet) as nombre from membre_projet, personne where personne.mail = membre_projet.mail group by membre_projet.mail, nom order by nombre desc";
 
 		$results = pg_query($query);
 while($result = pg_fetch_array($results)){
-       echo "<tr><td>".$result['membre_projet.mail']."</td><td>".$result['nom']."</td><td>".$result['nombre']."</td></tr>";
+       echo "<tr><td>".$result['m']."</td><td>".$result['nom']."</td><td>".$result['nombre']."</td></tr>";
 
 }
 ?>
@@ -60,7 +60,7 @@ while($result = pg_fetch_array($results)){
 
 		$results = pg_query($query);
 while($result = pg_fetch_array($results)){
-       echo "<tr><td>".$result['membre_projet.projet']."</td><td>".$result['d']."</td><td>".$result['nombre']."</td></tr>";
+       echo "<tr><td>".$result['p']."</td><td>".$result['d']."</td><td>".$result['nombre']."</td></tr>";
 
 }
 ?>
