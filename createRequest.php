@@ -29,20 +29,20 @@ if(isset($_POST['send']))//AJOUT
         ('".$lancement."',".$duree.",'".$description."','".$theme."','".$organisme."','".$comite."');";
         pg_query($query)or die(pg_last_error());
         ?>
-<!--
+
 <script>alert('Appel à projet ajouté avec succès !'); 
         location.href='projectOrganismDashboard.php?organisme=<?php echo $organisme; ?>';</script>
--->
+
 <?php    
     }
         else{
         $query = "UPDATE appel_a_projet SET lancement='".$lancement."',duree=".$duree.",description='".$description."',theme='".$theme."',publieur='".$organisme."',comite='".$comite."' WHERE id=".$id.";";
         pg_query($query)or die(pg_last_error());
         ?>
-<!--
+
 <script>alert('Appel à projet modifié avec succès !'); 
         location.href='projectOrganismDashboard.php?organisme=<?php echo $organisme; ?>';</script>
--->
+
 <?php       
         }
     }
