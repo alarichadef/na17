@@ -217,7 +217,9 @@ function validDepense($type_depense, $projetId) {
 	$query = "SELECT (SUM(d.montant) - lb.montant) AS final FROM depense d, ligne_Budgetaire lb, projet p 
 	WHERE d.financement = ".$type_depense." 
 	AND p.Id =".$projetId." AND lb.projet = p.proposition AND lb.financement = ".$type_depense.";";
-	$montant = pg_fetch_row(pg_query($db, $query))[0];
+	$qresult = pg_query($db, $query);
+	$result = pg_fetch_row($qresult);
+	$montant = $result[0];
 	return $montant > 0;
 }
 
