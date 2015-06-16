@@ -77,7 +77,7 @@ if (isset($_GET['projectId']))
         </table>
  
 	<?php
-	if ($_SESSION['role'] == 'webmaster')
+	if ($_SESSION['role'] == 'membre_du_laboratoire')
 	{
 		?>
 		<h2>Actions</h2>
