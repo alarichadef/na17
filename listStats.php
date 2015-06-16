@@ -56,7 +56,7 @@ while($result = pg_fetch_array($results)){
     <?php 
 		$db = dpconnexion();
 		$query = 
-			@" select count(mail) as nombre, membre_projet.projet as p, appel_a_projet.description as d from proposition_de_projet,appel_a_projet,projet,membre_projet where membre_projet.projet = projet.id and projet.proposition = proposition_de_projet.id and proposition_de_projet.appel_a_projet = appel_a_projet.id group by membre_projet.projet, appel_a_projet.description;";
+			@" select count(mail) as nombre, membre_projet.projet as p, appel_a_projet.description as d from proposition_de_projet,appel_a_projet,projet,membre_projet where membre_projet.projet = projet.id and projet.proposition = proposition_de_projet.id and proposition_de_projet.appel_a_projet = appel_a_projet.id group by membre_projet.projet, appel_a_projet.description order by count(mail) desc;";
 
 		$results = pg_query($query);
 while($result = pg_fetch_array($results)){
