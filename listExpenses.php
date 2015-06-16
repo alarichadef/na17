@@ -15,6 +15,7 @@ $depenses = getDepensesForMyProjects($_SESSION['login']);
     		<th>Date</th>
     		<th>Montant</th>
     		<th>Financement</th>
+    		<th>Etat de la dépense</th>
     	</tr>
     </thead>
     <tbody>
@@ -26,6 +27,7 @@ $depenses = getDepensesForMyProjects($_SESSION['login']);
 			<td><?php echo $depense["date"];?></td>
 			<td><?php echo $depense["montant"];?></td>
 			<td><?php echo $depense["financement"];?></td>
+			<td><?php echo $depense["Etat"];?></td>
 		</tr>
 	<?php
 		}

@@ -185,7 +185,7 @@ CREATE TABLE Depense(
 	projet INTEGER NOT NULL REFERENCES Projet(id),
 	date DATE NOT NULL,
 	montant DECIMAL NOT NULL,
-	Validateur VARCHAR(30) DEFAULT NULL REFERENCES Membre_du_projet(mail),
+	Validateur VARCHAR(30) REFERENCES Membre_du_projet(mail),
 	Demandeur VARCHAR(30) NOT NULL REFERENCES Membre_du_projet(mail),
 	Etat  Etat_depense NOT NULL,
 	financement Type_financement NOT NULL);

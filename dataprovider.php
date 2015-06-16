@@ -240,7 +240,7 @@ function ajouterDepense($personne, $type, $montant, $date, $projet)
 
 function acceptDepense($personne, $depenseId) {
 	$db = dpconnexion();
-	$query = "UPDATE depense SET validateur = '".$personne."' AND etat = 'Valide'
+	$query = "UPDATE depense SET Validateur = '".$personne."' AND etat = 'Valide'
 				WHERE id =".$depenseId.";";
 
 	$qresult = pg_query($db, $query) or die(pg_last_error());
@@ -248,7 +248,7 @@ function acceptDepense($personne, $depenseId) {
 
 function refuseDepense($personne, $depenseId) {
 	$db = dpconnexion();
-	$query = "UPDATE depense SET validateur = '".$personne."' AND etat = 'Refuse'
+	$query = "UPDATE depense SET Validateur = '".$personne."' AND etat = 'Refuse'
 				WHERE id =".$depenseId.";";
 	pg_query($db, $query) or die(pg_last_error());
 }

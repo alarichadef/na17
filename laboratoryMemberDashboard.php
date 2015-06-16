@@ -5,7 +5,7 @@ include('header.php');
 include('header_info.php');
 
 include('menu.php');
-if ($_SESSION['role'] != 'membre_du_laboratoire')
+if ($_SESSION['role'] == 'membre_du_laboratoire')
 {
 ?>
 <h2>Liste de vos projets</h2>
