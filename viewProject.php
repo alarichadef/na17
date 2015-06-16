@@ -14,6 +14,7 @@ if (isset($_GET['projectId']))
 
 	$depenses = getDepenses($projectId);
 	$membres = getMembresProjet($projectId);
+        $etat = getEtatProjet($projectId);
 	$db = dpconnexion();
 	$query =
 		@"select description as de, projet.proposition p from projet,proposition_de_projet, appel_a_projet where projet.proposition = proposition_de_projet.id and proposition_de_projet.appel_a_projet = appel_a_projet.id and projet.id = $projectId";
@@ -39,6 +40,7 @@ if (isset($_GET['projectId']))
         <tr><td><b>Debut</b></td><td><?php echo $project['debut'] ?></td></tr>
         <tr><td><b>Fin</b></td><td><?php echo $project['fin'] ?></td></tr>
         <tr><td><b>Id de la proposition</b></td><td><?php echo $project['proposition'] ?></td></tr>
+        <tr><td><b>Etat du projet</b></td><td><?php echo $etat?></td></tr>
 <tr><td><b>Description</b></td><td><?php echo $description['de'] ?></td></tr>
        <tr> <td>
         <form action="viewProposal.php">
