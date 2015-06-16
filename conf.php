@@ -28,7 +28,7 @@ $user = "postgres";
 $password = "postgres";
 $dbname = "";*/
 error_reporting(E_ALL);
-
+date_default_timezone_set('Europe/Paris');
 function connexion(){
 global $host, $port, $user, $password, $dbname;
 $connexion = "host=$host port=$port user=$user password=$password dbname=$dbname";
