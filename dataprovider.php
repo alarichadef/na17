@@ -294,7 +294,7 @@ function getDepenses($projectId)
 function getBudgetTotal($projectId)
 {
 	$db = dpconnexion();
-	$query = "SELECT SUM(montant) FROM ligne_Budgetaire lb WHERE lb.projet = $projectId;";
+	$query = "SELECT SUM(montant) FROM Projet p, ligne_Budgetaire lb WHERE p.proposition = lb.projet AND p.Id = $projectId";
 	$qresult = pg_query($db, $query);
 	return $qresult;
 }
@@ -302,7 +302,7 @@ function getBudgetTotal($projectId)
 function getBudgetTotalByType($projectId, $type)
 {
 	$db = dpconnexion();
-	$query = "SELECT SUM(montant) FROM ligne_Budgetaire lb WHERE lb.projet = $projectId AND lb.financement = '$type';";
+	$query = "SELECT SUM(montant) FROM Projet p, ligne_Budgetaire lb WHERE p.proposition = lb.projet AND p.Id = $projectId AND lb.financement = '$type';";
 	$qresult = pg_query($db, $query);
 	return $qresult;
 }
@@ -318,7 +318,7 @@ function getTotalDepenses($projectId)
 function getTotalDepensesByType($projectId, $type)
 {
 	$db = dpconnexion();
-	$query = "SELECT SUM(montant) FROM depense d WHERE d.projet = $projectId AND d.financement = $type;";
+	$query = "SELECT SUM(montant) FROM depense d WHERE d.projet = $projectId AND d.financement = '$type';";
 	$qresult = pg_query($db, $query);
 	return $qresult;	
 }
