@@ -85,7 +85,7 @@ while($result = pg_fetch_array($results)){
 		$query = 
 			@" select count(id) as c from appel_a_projet";
 		$results2 = pg_query($query);
-		$result2 = pg_fetch_array($results1);
+		$result2 = pg_fetch_array($results2);
 
 
        echo "<tr><td>".$result['c']."</td><td>".$result1['c']."</td><td>".$result2['c']."</td></tr>";
