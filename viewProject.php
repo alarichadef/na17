@@ -20,7 +20,7 @@ if (isset($_GET['projectId']))
 			{
 			  setMembresProjet($projectId,$newmembre);	  
 			}
-			echo '<meta http-equiv="refresh" content="0,2;URL=viewProject.php"'.'?projectId='.$_GET['projectId'].'>';
+			echo '<meta http-equiv="refresh" content="0;URL=viewProject.php?projectId='.$_GET['projectId'].'">';
 		} 
 	?>
 
