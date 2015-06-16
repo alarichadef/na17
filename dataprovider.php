@@ -446,4 +446,18 @@ function createProject($debut,$fin,$proposition)
 		return $qresults;
 }
 
+function getEtatProjet($projectId)
+{
+	$db = dpconnexion();
+	$query = "SELECT debut, fin FROM Projet p WHERE id = $projectId;";
+	$qresults = pg_query($query);
+	$result = pg_fetch_array($qresults);
+	$now = date('YYYY/mm/dd');
+	if ($now < $result["debut"])
+		return "A venir";
+	if ($now >= $result["debut"] && $now < $result["fin"])
+		return "En cours";
+	if ($now >= $result["fin"])
+		return "Terminé";
+}
 ?>
