@@ -20,7 +20,7 @@ if (isset($_GET['proposalId']))
 					{
 					setMembresProjet($projet['id'],$newmembre);	  
 					}
-			echo '<meta http-equiv="refresh" content="0;URL=listProjects.php">';
+			echo '<meta http-equiv="refresh" content="0;URL=contactEmployeDashboard.php#financeurs">';
 		}			}
 		else echo "Renseignez tout les champs";
 ?>
