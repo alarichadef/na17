@@ -34,6 +34,7 @@
 						<li><a href="contactEmployeDashboard.php#financeurs">Liste des Financeurs</a></li>
 						<li><a href="contactEmployeDashboard.php#projets">Liste des Organismes de Projet</a></li>
 						<li><a href="listExpenses.php">Liste des dépenses</a></li>
+						<li><a href="listProposals.php">Liste des propositions de projet</a></li> 
 					<?php
 					}
 				}
