@@ -12,7 +12,7 @@ if(isset($_POST['labelSubmit']))
 	header("Location:viewProposal.php?proposalId=$proposalId");
 }
 elseif (isset($_POST['acceptSubmit'])) {
-	acceptProposal($proposalId);
+	//acceptProposal($proposalId);
 	// TODO : interfaçage avec la création de projet (@Alaric)
 	header("Location:createProject.php?proposalId=$proposalId");
 }

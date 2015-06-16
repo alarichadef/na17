@@ -132,7 +132,12 @@ function refuseProposal($proposalId)
 function acceptProposal($proposalId)
 {
 	$db = dpconnexion();
+	$query = "SELECT appel_a_projet FROM proposition_de_projet WHERE id = $proposalId;";
+	$qresult = pg_query($query);
+	$requestId = pg_fetch_result($qresult, 0, 0);
 	$query = "UPDATE proposition_de_projet SET acceptation=TRUE, reponse=current_date WHERE id = $proposalId;";
+    $qresult = pg_query($query);
+    $query = "UPDATE proposition_de_projet SET acceptation=FALSE, reponse=current_date WHERE appel_a_projet = $requestId AND id != $proposalId AND acceptation IS NULL;";
     $qresult = pg_query($query);
 }
 
