@@ -10,8 +10,8 @@ if (isset($_GET['proposalId']))
 {
 	if((isset ($_GET['debut'])) && (isset ($_GET['fin'])))
 			{ 
-				echo "aaa = ".$_GET['debut'];
 				createProject($_GET['debut'],$_GET['fin'],$_GET['proposalId']);
+				acceptProposal($_GET['proposalId']);
 				$proposalId = intval($_GET['proposalId']);
 				$projet = getProjectByProposition($proposalId);
 				$projet = pg_fetch_array($projet);
@@ -20,7 +20,7 @@ if (isset($_GET['proposalId']))
 					{
 					setMembresProjet($projet['id'],$newmembre);	  
 					}
-		echo '<meta http-equiv="refresh" content="0,2;URL=listProjects.php">';
+			echo '<meta http-equiv="refresh" content="0;URL=listProjects.php">';
 		}			}
 		else echo "Renseignez tout les champs";
 ?>
