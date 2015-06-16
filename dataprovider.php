@@ -199,7 +199,7 @@ function getProjects()
 {
 	$db = dpconnexion();
 	$query =
-		@"select projet.id as i, projet.debut as d, projet.fin as f, description as d from projet,proposition_de_projet, appel_a_projet where projet.proposition = proposition_de_projet.id and proposition_de_projet.appel_a_projet = appel_a_projet.id";
+		@"select projet.id as i, projet.debut as d, projet.fin as f, description as de from projet,proposition_de_projet, appel_a_projet where projet.proposition = proposition_de_projet.id and proposition_de_projet.appel_a_projet = appel_a_projet.id";
 	$qresults = pg_query($db, $query) or die(pg_last_error());
 
 	return $qresults;
