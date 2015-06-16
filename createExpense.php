@@ -17,7 +17,7 @@ if (isset($_POST["send"]) && isset($_POST["type"]) && isset($_POST["montant"]) &
     // Vérifier que ça ajoute bien ?
     ajouterDepense($_SESSION["login"], $type, $montant, $date, $projet);
     echo "<p>Dépense ajoutée, redirection...</p>";
-    echo '<meta http-equiv="refresh" content="2;URL=viewProject.php?projectId=$projet">'; 
+    echo '<meta http-equiv="refresh" content="2;URL=viewProject.php?projectId='.$projet.'">'; 
 }
 else if (isset($_GET["projectId"]))
 {

@@ -18,12 +18,12 @@ if (isset($_GET["etat"]) && isset($_GET["projectId"]) && isset($_GET["expenseId"
 			{
 				acceptDepense($_SESSION['login'], $depenseId);
 				echo "<p>Dépense validée, redirection...</p>";
-				echo '<meta http-equiv="refresh" content="2;URL=viewProject.php?projectId=$projetId>';
+				echo '<meta http-equiv="refresh" content="2;URL=viewProject.php?projectId='.$projetId.'>';
 			}
 			else
 			{
 				echo "<p>Dépense refusée, pas assez de budget pour ce type de financement, redirection...</p>";
-				echo '<meta http-equiv="refresh" content="2;URL=viewProject.php?projectId=$projetId">';	
+				echo '<meta http-equiv="refresh" content="2;URL=viewProject.php?projectId='.$projetId.'">';	
 			}
 	}
 
@@ -32,7 +32,7 @@ if (isset($_GET["etat"]) && isset($_GET["projectId"]) && isset($_GET["expenseId"
 		$depense = pg_fetch_array(getDepenseById($depenseId));
 		refuseDepense($_SESSION['login'], $depenseId);
 		echo "<p>Dépense refusée, redirection...</p>";
-		echo '<meta http-equiv="refresh" content="2;URL=viewProject.php?projectId=$projetId">';	
+		echo '<meta http-equiv="refresh" content="2;URL=viewProject.php?projectId='.$projetId.'">';	
 	}
 }
 include('footer.php');
