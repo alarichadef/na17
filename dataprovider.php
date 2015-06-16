@@ -218,14 +218,16 @@ function getDepenseById($depenseId) {
 
 function validDepense($type_depense, $projetId) {
 	$db = dpconnexion();
-	$query = "SELECT SUM(d.montant) - lb.montant AS final FROM depense d, ligne_Budgetaire lb, projet p 
-	WHERE d.financement = '".$type_depense."' AND p.Id = $projetId AND lb.projet = p.proposition AND lb.financement = '$type_depense'
-	GROUP BY lb.montant;";
+	$query = "SELECT SUM(d.montant) FROM depense d 
+	WHERE d.financement = '".$type_depense."' AND d.etat = 'Valide' AND d.projet = $projetId;";
 	$qresult = pg_query($db, $query) or die(pg_last_error());
 	$result = pg_fetch_row($qresult);
 	$montant = $result[0];
-	var_dump($montant);
-	return $montant > 0;
+	$query = "SELECT lb.montant FROM ligne_budgetaire lb, Projet p WHERE p.proposition = lb.projet AND p.id = $projetId AND lb.financement = '$type_depense';";
+	$result = pg_query($db, $query) or die(pg_last_error());
+	$lb_result = pg_fetch_row($result);
+	$lb = $lb_result[0];
+	return $lb - $montant;
 }
 
 function ajouterDepense($personne, $type, $montant, $date, $projet)
