@@ -14,6 +14,11 @@ if (isset($_GET['projectId']))
 
 	$depenses = getDepenses($projectId);
 	$membres = getMembresProjet($projectId);
+	$db = dpconnexion();
+	$query =
+		@"select description as de, projet.proposition p from projet,proposition_de_projet, appel_a_projet where projet.proposition = proposition_de_projet.id and proposition_de_projet.appel_a_projet = appel_a_projet.id and projet.id = $projectId";
+	$description = pg_query($query) ;
+	$description = pg_fetch_array($description);
 
 	if(isset($_GET['mail'])){
 		foreach($_GET['mail'] as $newmembre)
@@ -22,6 +27,9 @@ if (isset($_GET['projectId']))
 			}
 			echo '<meta http-equiv="refresh" content="0;URL=viewProject.php?projectId='.$_GET['projectId'].'">';
 		} 
+
+
+
 	?>
 
 	<h2>Projet</h2>
@@ -31,6 +39,7 @@ if (isset($_GET['projectId']))
         <tr><td><b>Debut</b></td><td><?php echo $project['debut'] ?></td></tr>
         <tr><td><b>Fin</b></td><td><?php echo $project['fin'] ?></td></tr>
         <tr><td><b>Id de la proposition</b></td><td><?php echo $project['proposition'] ?></td></tr>
+<tr><td><b>Description</b></td><td><?php echo $description['de'] ?></td></tr>
        <tr> <td>
         <form action="viewProposal.php">
             <input type="hidden" name="proposalId" value="<?php echo $project['proposition']; ?>">

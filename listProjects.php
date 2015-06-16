@@ -19,14 +19,14 @@ while($result = pg_fetch_array($requests)){
      
   ?>
        <td> <form action="viewProject.php">
-            <input type="hidden" name="projectId" value="<?php echo $result['id']; ?>">
+            <input type="hidden" name="projectId" value="<?php echo $result['i']; ?>">
             <button class="btn btn-info">Voir les infos sur le projet</button>
         </form>
     </td>
         <form action="createProject.php" method="post">
             <input type="hidden" name="Début" value="<?php echo $result['debut']; ?>">
             <input type="hidden" name="Fin" value="<?php echo $result['fin']; ?>">
-            <input type="hidden" name="Id de la proposition du projet" value="<?php echo $result['proposition']; ?>">
+            <input type="hidden" name="Id de la proposition du projet" value="<?php echo $result['p']; ?>">
             <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
         </form>
   
