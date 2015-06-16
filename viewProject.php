@@ -83,7 +83,7 @@ if (isset($_GET['projectId']))
 		<h2>Actions</h2>
 		<h3>Liste des dépenses</h3>
 			<table class="table table-bordered table-hover table-striped">
-            <thead><tr><th>id</th><th>projet</th><th>date</th><th>Montant</th><th></th><th>Demandeur</th><th>Valideur</th><th>Etat</th><th>Financement</th><th></th></tr></thead>
+            <thead><tr><th>id</th><th>projet</th><th>date</th><th>Montant</th><th>Demandeur</th><th>Valideur</th><th>Etat</th><th>Financement</th><th></th></tr></thead>
             <tbody>
 		<?php
 		while($result = pg_fetch_array($depenses)){
