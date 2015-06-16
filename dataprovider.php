@@ -223,7 +223,7 @@ function validDepense($type_depense, $projetId) {
 	$qresult = pg_query($db, $query) or die(pg_last_error());
 	$result = pg_fetch_row($qresult);
 	$montant = $result[0];
-	$query = "SELECT lb.montant FROM ligne_budgetaire lb, Projet p WHERE p.proposition = lb.projet AND p.id = $projetId AND lb.financement = '$type_depense';";
+	$query = "SELECT SUM(lb.montant) FROM ligne_budgetaire lb, Projet p WHERE p.proposition = lb.projet AND p.id = $projetId AND lb.financement = '$type_depense';";
 	$result = pg_query($db, $query) or die(pg_last_error());
 	$lb_result = pg_fetch_row($result);
 	$lb = $lb_result[0];
