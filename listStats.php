@@ -9,7 +9,7 @@ include('menu.php');
 ?>
 
 <h1> Statistiques </h1>
-<h2>Liste des projets avec la somme des depenses superieures a la moyenne</h2>
+<h2>Liste des projets avec la moyenne des depenses superieures a la moyenne des depenses de tout les projets</h2>
 <table class="table table-bordered table-hover table-striped">
     <thead><tr><th>Id du projet</th><th>Moyenne des depenses</th></tr></thead>
                         <tbody>
