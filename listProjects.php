@@ -10,12 +10,12 @@ include('menu.php');
 
 <h2>Liste des projets</h2>
 <table class="table table-bordered table-hover table-striped">
-    <thead><tr><th>Id</th><th>Début</th><th>Fin</th><th>Id de la proposition du projet</th><th></th></tr></thead>
+    <thead><tr><th>Id</th><th>Début</th><th>Fin</th><th>Id de la proposition du projet</th><th>Description</th><th>Infos projet</th></tr></thead>
                         <tbody>
     <?php 
         $requests = GetProjects();
 while($result = pg_fetch_array($requests)){
-       echo "<tr><td>".$result['id']."</td><td>".$result['debut']."</td><td>".$result['fin']."</td>"."<td><center>".$result['proposition']."</center></td>";
+       echo "<tr><td>".$result['i']."</td><td>".$result['d']."</td><td>".$result['f']."</td><td>"."<center>".$result['p']."</center></td><td>".$result['de']."</td>";
      
   ?>
        <td> <form action="viewProject.php">
